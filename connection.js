@@ -3,10 +3,12 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 async function main(callback) {
+    console.log("Trying to connect to mongodb from connection.js.");
     const URI = process.env.MONGO_URI; // Declare MONGO_URI in your .env file
     const client = new MongoClient(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
+        
         // Connect to the MongoDB cluster
         await client.connect();
 
