@@ -38,11 +38,13 @@ myDB(async client => {
   app.route('/').get((req, res) => {
     res.render('index', {
       title: 'Connected to Database',
-      message: 'Please login'
+      message: 'Please login',
+      showLogin: true
     });
   });
 
   passport.use(new LocalStrategy((username, password, done) => {
+    console.log("Username: ", username, " Password: ", password);
     myDataBase.findOne({ username: username }, (err, user) => {
       console.log(`User ${username} attempted to log in.`);
       if(err) return done(err);
@@ -51,6 +53,15 @@ myDB(async client => {
       return done(null, user);
     })
   }));
+
+  app.route('/login').post(passport.authenticate('local', { failureRedirect: '/' }), (req, res) => {
+    console.log(req.body);
+    res.redirect('/profile');
+  });
+
+  app.route('/profile').get((req, res) => {
+    res.render('profile');
+  });
 
   passport.serializeUser((user, done) => {
     done(null, user._id);
