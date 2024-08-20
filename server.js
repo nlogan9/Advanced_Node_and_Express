@@ -74,10 +74,19 @@ myDB(async client => {
     done(null, user._id);
   });
 
+  app.route('/logout').get((req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
   passport.deserializeUser((id, done) => {
     myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
       done(null, doc);
     })
+  });
+
+  app.use((req, res, next) => {
+    res.status(404).type('text').send('Not Found')
   });
 
 }).catch(e => {
