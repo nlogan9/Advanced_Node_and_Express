@@ -54,12 +54,19 @@ myDB(async client => {
     })
   }));
 
+  function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/');
+  };
+
   app.route('/login').post(passport.authenticate('local', { failureRedirect: '/' }), (req, res) => {
     console.log(req.body);
     res.redirect('/profile');
   });
 
-  app.route('/profile').get((req, res) => {
+  app.route('/profile').get(ensureAuthenticated, (req, res) => {
     res.render('profile');
   });
 
