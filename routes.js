@@ -15,7 +15,7 @@ module.exports = function (app, myDataBase) {
 
   app.route('/login').post(passport.authenticate('local', { failureRedirect: '/' }), (req, res) => {
       console.log(req.body);
-      res.redirect('/profile');
+      res.redirect('/chat');
   });
 
   app.route('/register').post((req, res, next) => {
@@ -39,7 +39,7 @@ module.exports = function (app, myDataBase) {
     })
   },
   passport.authenticate('local', { failureRedirect: '/' }), (req, res, next) => {
-    res.redirect('/profile');
+    res.redirect('/chat');
   });
     
   app.route('/profile').get(ensureAuthenticated, (req, res) => {
