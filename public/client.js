@@ -11,6 +11,11 @@ $(document).ready(function () {
 //global io
 let socket = io();
 
-socket.on('user count', function(data) {
+socket.on('user', function(data) {
+  $('#num-users').text(data.currentUsers + " users online");
+  let message = 
+    data.username + 
+    (data.connected ? 'has joined the chat.' : 'has left the chat.');
+  $('#messages').append($('<li>').html('<b>' + message + '</b>'));
   console.log(data);
 });
