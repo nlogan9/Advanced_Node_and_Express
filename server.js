@@ -50,6 +50,9 @@ myDB(async client => {
 });
 
 const PORT = process.env.PORT || 3000;
+let currentUsers = 0;
 http.listen(PORT, () => {
   console.log('Listening on port ' + PORT);
+  ++currentUsers;
+  io.emit('user count', currentUsers);
 });
