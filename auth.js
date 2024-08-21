@@ -14,9 +14,9 @@ module.exports = function (app, myDataBase) {
   },
     function(accessToken, refreshToken, profile, cb) {
       console.log(process.env.GITHUB_CLIENT_ID);
-      UserActivation.findOrCreate({ githubID: profile.id }, function (err, user) {
+      /*UserActivation.findOrCreate({ githubID: profile.id }, function (err, user) {
         return cb(err, user);
-      });
+      });*/
     }
 ));
     
